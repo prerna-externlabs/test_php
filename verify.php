@@ -18,9 +18,7 @@ if (empty($_POST['razorpay_payment_id']) === false)
 
     try
     {
-        // Please note that the razorpay order ID must
-        // come from a trusted source (session here, but
-        // could be database or something else)
+        
         $attributes = array(
             'razorpay_order_id' => $_SESSION['razorpay_order_id'],
             'razorpay_payment_id' => $_POST['razorpay_payment_id'],
@@ -42,7 +40,7 @@ if ($success === true)
     $razorpay_payment_id = $_POST['razorpay_payment_id'];
     $email = $_SESSION['email'];
     $price = $_SESSION['price'];
-    $sql = "INSERT INTO `product` (`order_id`, `razorpay_payment_id`, `status`, `email`, `price`) VALUES ('$razorpay_order_id', '$razorpay_payment_id', 'success', '$email', '$price')";
+    $sql = "INSERT INTO `product` (`order_id`, `razorpay_payment_id`, `status`, `email`, `price`,'created_at') VALUES ('$razorpay_order_id', '$razorpay_payment_id', 'success', '$email', '$price',current_timestamp())";
     if(mysqli_query($conn, $sql)){
         echo "payment details inserted to db";
     }
